@@ -8,24 +8,24 @@ router.post("/register",async(req,res)=>{
     const {name,email,age,mobile,work,add,desc} = req.body;
 
     if(!name || !email || !age || !mobile || !work || !add || !desc){
-        res.status(422).json("plz fill the data");
+        res.status(404).json({ result:"Check  all inpt field has proper data."});
     }
 
     try {
         
-        const preuser = await users.findOne({email:email});
-        console.log(preuser);
+        const checkUser = await users.findOne({email:email});
+        console.log(checkUser);
 
-        if(preuser){
-            res.status(422).json("this is user is already present");
+        if(checkUser){
+            res.status(404).json({ result:"this is user is already present"});
         }else{
-            const adduser = new users({
+            const addNewUser = new users({
                 name,email,age,mobile,work,add,desc
             });
 
-            await adduser.save();
-            res.status(201).json(adduser);
-            console.log(adduser);
+            await addNewUser.save();
+            res.status(201).json(addNewUser);
+            console.log(addNewUser);
         }
 
     } catch (error) {
@@ -37,3 +37,4 @@ router.post("/register",async(req,res)=>{
 
 
 module.exports=router;
+
