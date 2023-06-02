@@ -33,7 +33,18 @@ router.post("/register",async(req,res)=>{
     }
 })
 
+//method for getting data on home page
 
+router.get('/getData',async (req,res)=>{
+    try {
+        const userData =await users.find();
+        res.status(201).json(userData);
+        console.log(userData)
+    } catch (error) {
+        res.status(422).json(error);
+    }
+}
+)
 
 
 module.exports=router;
