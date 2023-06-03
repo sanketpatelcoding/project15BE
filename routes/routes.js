@@ -44,7 +44,23 @@ router.get('/getData',async (req,res)=>{
         res.status(422).json(error);
     }
 }
-)
+);
+
+//method to get single user
+
+
+router.get('/oneUserData/:id',async (req,res)=>{
+   try {
+    console.log(req.params);
+    const {id}=req.params;
+    const singleUser = await users.findById({_id:id});
+    console.log(singleUser);
+    res.status(201).json(singleUser);
+   } catch (error) {
+    res.status(404).json(error);
+   }
+}
+);
 
 
 module.exports=router;
