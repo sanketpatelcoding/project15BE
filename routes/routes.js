@@ -62,6 +62,39 @@ router.get('/oneUserData/:id',async (req,res)=>{
 }
 );
 
+// Patch Method to update the existinguser through edit.js
+
+router.patch("/updateOldUser/:id",async(req,res)=>{
+    try {
+        const {id} = req.params;
+
+        const updatedUser = await users.findByIdAndUpdate(id,req.body,{
+            new:true
+        });
+
+        console.log(updatedUser);
+        res.status(201).json(updatedUser);
+
+    } catch (error) {
+        res.status(422).json(error);
+    }
+})
+
+
+//Delete api  to delte the data
+router.delete("/deleteUserById/:id",async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const deleteUser = await users.findByIdAndDelete({_id:id})
+        console.log(deleteUser);
+        res.status(201).json(deleteUser);
+
+    } catch (error) {
+        res.status(422).json(error);
+        //console.log(error)
+    }
+})
+
 
 module.exports=router;
 
